@@ -1,0 +1,248 @@
+#-----------------------------------------------------------
+# MCMC input file for calibrating the model to rat benzene data 
+# rat parameter values taken mostly from Haddad, TAP 161:249 (1999)
+
+  Integrate (Lsodes, 1E-8, 1E-8, 1);
+
+  MCMC ("BTEX.MCMC.1.2.out", "BTEX.MCMC.1.1.out", "", 100101, 0, 35, 70000, 9872711.985881);
+
+Level { # General level
+
+  Distrib (V_fat,    LogNormal, 0.0175, 1.1);
+  Distrib (Flow_alv, LogNormal, 0.0625, 1.1);
+  Distrib (Flow_tot, LogNormal, 0.0625, 1.1);
+
+  # Initial state variable values
+  CYP2E1_Liver = 20.913E-6;
+
+  # MW
+  Benzene_MW = 78;
+  Toluene_MW = 92.14;
+  Ethylbenzene_MW = 106.17;
+  Xylene_MW = 106.17;
+  
+  # Parameter values for rats, not sampled
+
+  BodyV = 0.25;   # L, or kg if density is 1
+  V_liv = 0.01;   # L
+  V_wp  = 0.0125; # L
+
+  Pct_Flow_fat = 0.09;
+  Pct_Flow_liv = 0.25;
+  Pct_Flow_wp  = 0.51;
+  Pct_Flow_pp  = 0.15;
+
+  Benzene_PC_fat = 33.333;
+  Benzene_PC_liv = 1.133;
+  Benzene_PC_wp  = 1.133;
+  Benzene_PC_pp  = 1;
+
+  Toluene_PC_fat = 56.722;
+  Toluene_PC_liv = 4.644;
+  Toluene_PC_wp = 4.644;
+  Toluene_PC_pp = 1.539;
+
+  Ethylbenzene_PC_fat = 36.440;
+  Ethylbenzene_PC_liv = 1.963;
+  Ethylbenzene_PC_wp = 1.412;
+  Ethylbenzene_PC_pp = 0.609;
+
+  Xylene_PC_fat = 40.413;
+  Xylene_PC_liv = 1.967;
+  Xylene_PC_wp = 1.967;
+  Xylene_PC_pp = 0.911;
+
+  Level { # All experiments
+
+   Level { # Benzene
+
+    Distrib (Benzene_PC_art, LogNormal, 15, 1.1);
+    Distrib (k1, Uniform, 1E3, 1E8);               # standard, non informative
+    Distrib (k2, Uniform, 10, 1E7);                # standard, non informative
+    Distrib (k,  Uniform, 2, 50);                  # This is k3 in fact
+     
+    Likelihood (Benzene_C_ven_MGL, LogNormal, Prediction(Benzene_C_ven_MGL), Data(sigma_obs)); 
+
+    # Parameters not used but initialized to avoid divide by zero errors
+    # Benzene_PC_art = 15;  
+    Toluene_PC_art = 18;  
+    Ethylbenzene_PC_art = 42.7;  
+    Xylene_PC_art = 46.0;
+ 
+    Level {
+
+    Simulation { # 1: # benzene Haddad 2000
+            
+      Benzene_C_inh = PerDose(0.00208, 360, 0, 240);
+
+      Print (Benzene_C_ven_MGL, 245,   270,   300,   330,   360);    
+      Data  (Benzene_C_ven_MGL, 0.476, 0.265, 0.110, 0.060, 0.034);
+      Data  (sigma_obs,         1.088, 1.297, 1.285, 1.383, 1.297);
+    }
+    
+    Simulation { # 2: # benzene Haddad 2000
+            
+      Benzene_C_inh = PerDose(0.00416, 360, 0, 240);
+    
+      Print (Benzene_C_ven_MGL, 245,   270,   300,   330,   360);
+      Data  (Benzene_C_ven_MGL, 1.482, 0.832, 0.432, 0.245, 0.109);
+      Data  (sigma_obs,         1.190, 1.094, 1.049, 1.176, 1.198);
+    }
+    
+    Simulation { # 3: # benzene Haddad 2000
+            
+      Benzene_C_inh = PerDose(0.00832, 360, 0, 240);
+    
+      Print (Benzene_C_ven_MGL, 245,   270,   300,   330,   360);
+      Data  (Benzene_C_ven_MGL, 5.432, 3.547, 2.172, 1.324, 0.766);
+      Data  (sigma_obs,          1.116, 1.189, 1.055, 1.128, 1.183);
+    }
+    }
+   } # end Level Benzene
+
+
+   Level { # Toluene
+
+    Distrib (Toluene_PC_art, LogNormal,  18, 1.1);
+    Distrib (Toluene_J0_k1,  Uniform, 1E3, 1E8);    # standard, non informative
+    Distrib (Toluene_J0_k2,  Uniform, 10, 1E7);     # standard, non informative
+    Distrib (Toluene_J1_k,   Uniform, 2, 50);       # This is k3 in fact
+
+    Likelihood (Data(Toluene_C_ven_MGL), LogNormal, Prediction(Toluene_C_ven_MGL), Data(sigma_obs)); 
+
+    # Parameters not used but initialized to avoid divide by zero errors
+    Benzene_PC_art = 15;  
+    # Toluene_PC_art = 18;  
+    Ethylbenzene_PC_art = 42.7;  
+    Xylene_PC_art = 46.0;
+
+    Level {
+
+    Simulation { # 8: # TOL Haddad 2000
+             
+      Toluene_C_inh = PerDose(0.00208, 360, 0, 240);
+    
+      Print (Toluene_C_ven_MGL, 245,   270,   300,   330,   360);
+      Data  (Toluene_C_ven_MGL, 0.487, 0.299, 0.144, 0.117, 0.063);
+      Data  (sigma_obs,         1.2, 1.3, 1.323, 1.279, 1.383);
+    }
+    
+    Simulation { # 9: # TOL Haddad 2000
+             
+      Toluene_C_inh = PerDose(0.00416, 360, 0, 240);
+    
+      Print (Toluene_C_ven_MGL, 245,   270,   300,   330,   360);
+      Data  (Toluene_C_ven_MGL, 1.154, 0.697, 0.382, 0.257, 0.150);
+      Data  (sigma_obs,          1.380, 1.202, 1.232, 1.210, 1.219);
+    }
+    
+    Simulation { # 10: # TOL Haddad 2000
+             
+      Toluene_C_inh = PerDose(0.00832, 360, 0, 240);
+    
+      Print (Toluene_C_ven_MGL, 245,   270,   300,   330,   360);
+      Data  (Toluene_C_ven_MGL, 4.333, 3.171, 1.967, 1.161, 0.741);
+      Data  (sigma_obs,          1.248, 1.248, 1.193, 1.237, 1.159);
+    }
+    }
+   } # end Toluene Level
+
+
+   Level { # Ethylbenzene
+
+    Distrib (Ethylbenzene_PC_art, LogNormal,  42.7, 1.1);
+    Distrib (Ethylbenzene_J0_k1,  Uniform, 1E3, 1E8);     # standard, non informative
+    Distrib (Ethylbenzene_J0_k2,  Uniform, 10, 1E7);      # standard, non informative
+    Distrib (Ethylbenzene_J1_k,   Uniform, 2, 50);        # This is k3 in fact
+
+    Likelihood (Data(Ethylbenzene_C_ven_MGL), LogNormal, Prediction(Ethylbenzene_C_ven_MGL), Data(sigma_obs)); 
+
+    # Parameters not used but initialized to avoid divide by zero errors
+    Benzene_PC_art = 15;  
+    Toluene_PC_art = 18;  
+    # Ethylbenzene_PC_art = 42.7;  
+    Xylene_PC_art = 46.0;
+
+    Level {
+
+    Simulation { # 11: # EBZ Haddad 2000
+            
+      Ethylbenzene_C_inh = PerDose(0.00208, 360, 0, 240);
+      
+      Print (Ethylbenzene_C_ven_MGL, 245,   270,   300,   330,   360);
+      Data  (Ethylbenzene_C_ven_MGL, 0.821, 0.523, 0.313, 0.191, 0.142);
+      Data (sigma_obs,               1.143, 1.256, 1.211, 1.111, 1.323);
+    }
+      
+    Simulation { # 12: # EBZ Haddad 2000
+             
+      Ethylbenzene_C_inh = PerDose(0.00416, 360, 0, 240);
+      
+      Print (Ethylbenzene_C_ven_MGL, 245,   270,   300,   330,   360);
+      Data  (Ethylbenzene_C_ven_MGL, 1.940, 1.290, 0.880, 0.560, 0.380);
+      Data (sigma_obs,               1.086, 1.114, 1.279, 1.215, 1.082);
+    }
+      
+    Simulation { # 13: # EBZ Haddad 2000
+              
+      Ethylbenzene_C_inh = PerDose(0.00832, 360, 0, 240);
+      
+      Print (Ethylbenzene_C_ven_MGL, 245,   270,   300,   330,   360);
+      Data  (Ethylbenzene_C_ven_MGL, 7.710, 4.980, 3.510, 2.490, 1.690);
+      Data  (sigma_obs,              1.108, 1.112, 1.083, 1.119, 1.220);
+    }
+    }
+   } # end Ethylbenzene Level
+
+
+   Level { # Xylene
+
+    Distrib (Xylene_PC_art, LogNormal,  46, 1.1);
+    Distrib (Xylene_J0_k1,  Uniform, 1E3, 1E8);    # standard, non informative
+    Distrib (Xylene_J0_k2,  Uniform, 10, 1E7);     # standard, non informative
+    Distrib (Xylene_J1_k,   Uniform, 2, 50);       # This is k3 in fact
+
+    Likelihood (Data(Xylene_C_ven_MGL), LogNormal, Prediction(Xylene_C_ven_MGL), Data(sigma_obs)); 
+
+    # Parameters not used but initialized to avoid divide by zero errors
+    Benzene_PC_art = 15;  
+    Toluene_PC_art = 18;  
+    Ethylbenzene_PC_art = 42.7;  
+    # Xylene_PC_art = 46.0;
+
+    Level {
+
+    Simulation { # 14: # XYL Haddad 2000
+             
+      Xylene_C_inh = PerDose(0.00208, 360, 0, 240);
+    
+      Print (Xylene_C_ven_MGL, 245,   270,   300,   330,   360);
+      Data  (Xylene_C_ven_MGL, 0.495, 0.316, 0.245, 0.173, 0.118);
+      Data (sigma_obs,         1.083, 1.318, 1.172, 1.261, 1.279);
+    }
+    
+    Simulation { # 15: # XYL Haddad 2000
+             
+      Xylene_C_inh = PerDose(0.00416, 360, 0, 240);
+    
+      Print (Xylene_C_ven_MGL, 245,   270,   300,   330,   360);
+      Data  (Xylene_C_ven_MGL, 1.271, 0.876, 0.524, 0.385, 0.246);
+      Data (sigma_obs,         1.143, 1.171, 1.187, 1.136, 1.366);
+    }
+    
+    Simulation { # 16: # XYL Haddad 2000
+             
+      Xylene_C_inh = PerDose(0.00832, 360, 0, 240);
+    
+      Print (Xylene_C_ven_MGL, 245,   270,   300,   330,   360);
+      Data  (Xylene_C_ven_MGL, 6.348, 4.273, 2.838, 1.964, 1.330);
+      Data (sigma_obs,         1.251, 1.382, 1.444, 1.508, 1.568);
+    }
+    }
+   } # end Xylene Level
+
+ } # end All experiments
+
+} # end general Level
+    
+End.

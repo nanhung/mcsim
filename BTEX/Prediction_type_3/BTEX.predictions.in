@@ -1,0 +1,149 @@
+#------------------------------------------------------------------------------
+# Input file for BTEX interaction predictions
+# rat parameter values taken mostly from Haddad, TAP 161:249 (1999)
+# except those read in from MCMC output.
+
+Integrate (Lsodes, 1e-8, 1e-8, 1);
+
+SetPoints ("BTEX.predictions.out", "BTEX.35para.MPV.dat", 0, 
+
+           V_fat, Flow_alv, Flow_tot,
+
+           Benzene_PC_art,      Benzene_J1_k1,      Benzene_J2_k2,      Benzene_J3_k3,
+           Toluene_PC_art,      Toluene_J1_k1,      Toluene_J2_k2,      Toluene_J3_k3,
+           Ethylbenzene_PC_art, Ethylbenzene_J1_k1, Ethylbenzene_J2_k2, Ethylbenzene_J3_k3, 
+           Xylene_PC_art,       Xylene_J1_k1,       Xylene_J2_k2,       Xylene_J3_k3, 
+
+           PB1_PC_art, Benzene_J4_k1,       Benzene_J5_k2,      Benzene_J6_k3,
+           PT1_PC_art, Toluene_J4_k1,       Toluene_J5_k2,      Toluene_J6_k3,
+           PE1_PC_art, Ethylbenzene_J4_k1,  Ethylbenzene_J5_k2, Ethylbenzene_J6_k3,
+           PX1_PC_art, Xylene_J4_k1,        Xylene_J5_k2,       Xylene_J6_k3);
+
+
+# Initial state variable values
+CYP2E1_Liver = 20.913E-6;
+
+# MW
+Benzene_MW = 78;
+Toluene_MW = 92.14;
+Ethylbenzene_MW = 106.17;
+Xylene_MW = 106.17;
+
+# average experimental error  
+sigma=1.28;
+
+# Parameter values for rats
+
+BodyV = 0.25;   # L, or kg if density is 1
+V_liv = 0.01;   # L
+V_wp  = 0.0125; # L
+
+Pct_Flow_fat = 0.09;   
+Pct_Flow_liv = 0.25;
+Pct_Flow_wp  = 0.51;
+Pct_Flow_pp  = 0.15;
+
+Benzene_PC_fat = 33.333;
+Benzene_PC_liv = 1.133;
+Benzene_PC_wp  = 1.133;
+Benzene_PC_pp  = 1;
+
+PB1_PC_fat = 33.333;
+PB1_PC_liv = 1.133;
+PB1_PC_wp  = 1.133;
+PB1_PC_pp  = 1;
+
+Toluene_PC_fat = 56.722;
+Toluene_PC_liv = 4.644;
+Toluene_PC_wp  = 4.644;
+Toluene_PC_pp  = 1.539;
+
+PT1_PC_fat = 56.722;
+PT1_PC_liv = 4.644;
+PT1_PC_wp  = 4.644;
+PT1_PC_pp  = 1.539;
+
+Ethylbenzene_PC_fat = 36.440;
+Ethylbenzene_PC_liv = 1.963;
+Ethylbenzene_PC_wp  = 1.412;
+Ethylbenzene_PC_pp  = 0.609;
+
+PE1_PC_fat = 36.440;
+PE1_PC_liv = 1.963;
+PE1_PC_wp  = 1.412;
+PE1_PC_pp  = 0.609;
+
+Xylene_PC_fat = 40.413;
+Xylene_PC_liv = 1.976;
+Xylene_PC_wp  = 1.976;
+Xylene_PC_pp  = 0.911;
+
+PX1_PC_fat = 40.413;
+PX1_PC_liv = 1.976;
+PX1_PC_wp  = 1.976;
+PX1_PC_pp  = 0.911;
+
+# The following are inconsequential but need to be <> 0
+
+PB2_PC_art = 1;
+PB2_PC_fat = 1;
+PB2_PC_liv = 1;
+PB2_PC_wp  = 1;
+PB2_PC_pp  = 1;
+
+PT2_PC_art = 1;
+PT2_PC_fat = 1;
+PT2_PC_liv = 1;
+PT2_PC_wp  = 1;
+PT2_PC_pp  = 1;
+
+PE2_PC_art = 1;
+PE2_PC_fat = 1;
+PE2_PC_liv = 1;
+PE2_PC_wp  = 1;
+PE2_PC_pp  = 1;
+
+PX2_PC_art = 1;
+PX2_PC_fat = 1;
+PX2_PC_liv = 1;
+PX2_PC_wp  = 1;
+PX2_PC_pp  = 1;
+
+Simulation { # 1 : TX co-administration
+
+  Toluene_C_inh = PerDose (0.00416, 360, 0, 240);
+  Xylene_C_inh  = PerDose (0.00832, 360, 0, 240);
+ 
+  Print (Toluene_C_ven_MGL_wn, 245, 270, 300, 330, 360);
+  Print (Xylene_C_ven_MGL_wn,  245, 270, 300, 330, 360);
+
+}
+
+Simulation { # 2 : TEX co-administration
+
+  Toluene_C_inh      = PerDose (0.00416, 360, 0, 240);
+  Ethylbenzene_C_inh = PerDose (0.00416, 360, 0, 240);
+  Xylene_C_inh       = PerDose (0.00416, 360, 0, 240);
+   
+  Print (Toluene_C_ven_MGL_wn,      245, 270, 300, 330, 360);
+  Print (Ethylbenzene_C_ven_MGL_wn, 245, 270, 300, 330, 360);
+  Print (Xylene_C_ven_MGL_wn,       245, 270, 300, 330, 360);
+
+}
+
+Simulation { # 3 : BTEX co-administration
+
+  Benzene_C_inh      = PerDose (0.00416, 360, 0, 240);
+  Toluene_C_inh      = PerDose (0.00208, 360, 0, 240);
+  Ethylbenzene_C_inh = PerDose (0.00208, 360, 0, 240);
+  Xylene_C_inh       = PerDose (0.00208, 360, 0, 240);
+
+  Print (Benzene_C_ven_MGL_wn,      245, 270, 300, 330, 360);
+  Print (Toluene_C_ven_MGL_wn,      245, 270, 300, 330, 360);
+  Print (Ethylbenzene_C_ven_MGL_wn, 245, 270, 300, 330, 360);
+  Print (Xylene_C_ven_MGL_wn,       245, 270, 300, 330, 360);
+
+}
+
+END.
+

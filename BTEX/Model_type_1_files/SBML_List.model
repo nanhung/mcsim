@@ -1,0 +1,23 @@
+#------------------------------------------------------------------------------
+# SBML_List.model
+#
+# Defines a list of SBML model files to read and, if needed, a PK template 
+# to use for the circulating species (the ones included in a meaningful
+# compartment.
+# 
+# Use it as "mod SBML_List.model"
+#
+# Copyright (c) 1993-2008 Free Software Foundation, Inc.
+#------------------------------------------------------------------------------
+
+PKTemplate = {"4cpt_PBPK.model"};
+
+SBMLModels = {UseID, "compartment", "Benzene_Liver.xml",
+              "Toluene_Liver.xml",
+              "Ethylbenzene_Liver.xml",
+              "Xylene_Liver.xml"};
+
+End.
+
+
+

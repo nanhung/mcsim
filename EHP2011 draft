@@ -1,1 +1,3 @@
 wget http://www.gnu.org/software/mcsim/supplement_EHP_2011.tar.gz
+mkdir BTEX
+mv supplement_EHP_2011.tar.gz BTEX

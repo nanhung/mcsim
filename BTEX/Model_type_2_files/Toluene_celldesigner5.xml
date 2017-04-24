@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+<model id="Toluene_celldesigner4">
+<listOfCompartments>
+<compartment id="compartment" size="1"/>
+<compartment id="Liver" size="1"/>
+</listOfCompartments>
+<listOfSpecies>
+<species id="CYP2E1" name="CYP2E1" initialConcentration="1" compartment="Liver" charge="0"/>
+<species id="Toluene" name="Toluene" initialConcentration="2" compartment="compartment" charge="0"/>
+<species id="Toluene_CYP2E1" name="Toluene_CYP2E1" initialConcentration="0" compartment="Liver" charge="0"/>
+<species id="Benzyl_alcohol" name="Benzyl_alcohol" initialConcentration="0" compartment="compartment" charge="0"/>
+<species id="Toluene_CYP2B1" name="Toluene_CYP2B1" initialConcentration="0" compartment="Liver" />
+<species id="CYP2B1" name="CYP2B1" initialConcentration="1" compartment="Liver" charge="0"/>
+</listOfSpecies>
+<listOfReactions>
+<reaction id="Toluene_J0" name="Toluene_J0" reversible="false" fast="false">
+<listOfReactants>
+<speciesReference species="Toluene_CYP2E1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="Toluene"/>
+<speciesReference species="CYP2E1"/>
+</listOfProducts>
+<kineticLaw>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<apply>
+<times/>
+<ci> Toluene_J0_k2 </ci>
+<ci> Toluene_CYP2E1 </ci>
+</apply>
+</math>
+<listOfParameters>
+<parameter id="Toluene_J0_k2" value="0.1"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction id="Toluene_J1" name="Toluene_J0" reversible="false" fast="false">
+<listOfReactants>
+<speciesReference species="Toluene"/>
+<speciesReference species="CYP2E1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="Toluene_CYP2E1"/>
+</listOfProducts>
+<kineticLaw>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<apply>
+<times/>
+<ci> Toluene_J0_k1 </ci>
+<ci> Toluene </ci>
+<ci> CYP2E1 </ci>
+</apply>
+</math>
+<listOfParameters>
+<parameter id="Toluene_J0_k1" value="0.1"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction id="Toluene_J2" name="Toluene_J1" reversible="false" fast="false">
+<listOfReactants>
+<speciesReference species="Toluene_CYP2E1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="CYP2E1"/>
+<speciesReference species="Benzyl_alcohol"/>
+</listOfProducts>
+<kineticLaw>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<apply>
+<times/>
+<ci> Toluene_J1_k </ci>
+<ci> Toluene_CYP2E1 </ci>
+</apply>
+</math>
+<listOfParameters>
+<parameter id="Toluene_J1_k" value="0.1"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction id="Toluene_J1_B" name="Toluene_J0_B" reversible="false" fast="false">
+<listOfReactants>
+<speciesReference species="Toluene"/>
+<speciesReference species="CYP2B1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="Toluene_CYP2B1"/>
+</listOfProducts>
+<kineticLaw>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<apply>
+<times/>
+<ci> Toluene_J0_k1_B </ci>
+<ci> Toluene </ci>
+<ci> CYP2B1 </ci>
+</apply>
+</math>
+<listOfParameters>
+<parameter id="Toluene_J0_k1_B" value="0.1"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction id="Toluene_J0_B" name="Toluene_J0_B" reversible="false" fast="false">
+<listOfReactants>
+<speciesReference species="Toluene_CYP2B1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="CYP2B1"/>
+<speciesReference species="Toluene"/>
+</listOfProducts>
+<kineticLaw>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<apply>
+<times/>
+<ci> Toluene_J0_k2_B </ci>
+<ci> Toluene_CYP2B1 </ci>
+</apply>
+</math>
+<listOfParameters>
+<parameter id="Toluene_J0_k2_B" value="0.1"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction id="Toluene_J2_B" name="Toluene_J1_B" reversible="false" fast="false">
+<listOfReactants>
+<speciesReference species="Toluene_CYP2B1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="CYP2B1"/>
+<speciesReference species="Benzyl_alcohol"/>
+</listOfProducts>
+<kineticLaw>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<apply>
+<times/>
+<ci> Toluene_J1_k_B </ci>
+<ci> Toluene_CYP2B1 </ci>
+</apply>
+</math>
+<listOfParameters>
+<parameter id="Toluene_J1_k_B" value="0.1"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+</listOfReactions>
+</model>
+</sbml>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+<model id="Benzene_celldesignerPB11">
+<listOfCompartments>
+<compartment id="compartment" size="1"/>
+<compartment id="Liver" size="1"/>
+</listOfCompartments>
+<listOfSpecies>
+<species id="CYP2E1" name="CYP2E1" initialConcentration="1" compartment="Liver" charge="0"/>
+<species id="Benzene" name="Benzene" initialConcentration="2" compartment="compartment" charge="0"/>
+<species id="Benzene_CYP2E1" name="Benzene_CYP2E1" initialConcentration="0" compartment="Liver" charge="0"/>
+<species id="PB1_CYP2E1" name="PB1_CYP2E1" initialConcentration="0" compartment="Liver" charge="0"/>
+<species id="PB2" name="PB2" initialConcentration="0" compartment="compartment" charge="0"/>
+<species id="PB1" name="PB1" initialConcentration="0" compartment="compartment" charge="0"/>
+</listOfSpecies>
+<listOfReactions>
+<reaction id="Benzene_J2" name="Benzene_J2" reversible="false" fast="false">
+<listOfReactants>
+<speciesReference species="Benzene_CYP2E1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="Benzene"/>
+<speciesReference species="CYP2E1"/>
+</listOfProducts>
+<kineticLaw>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<apply>
+<times/>
+<ci> Benzene_J2_k2 </ci>
+<ci> Benzene_CYP2E1 </ci>
+</apply>
+</math>
+<listOfParameters>
+<parameter id="Benzene_J2_k2" value="0.1"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction id="Benzene_J1" name="Benzene_J1" reversible="false" fast="false">
+<listOfReactants>
+<speciesReference species="Benzene"/>
+<speciesReference species="CYP2E1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="Benzene_CYP2E1"/>
+</listOfProducts>
+<kineticLaw>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<apply>
+<times/>
+<ci> Benzene_J1_k1 </ci>
+<ci> Benzene </ci>
+<ci> CYP2E1 </ci>
+</apply>
+</math>
+<listOfParameters>
+<parameter id="Benzene_J1_k1" value="0.1"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction id="Benzene_J3" name="Benzene_J3" reversible="false" fast="false">
+<listOfReactants>
+<speciesReference species="Benzene_CYP2E1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="CYP2E1"/>
+<speciesReference species="PB1"/>
+</listOfProducts>
+<kineticLaw>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<apply>
+<times/>
+<ci> Benzene_J3_k3 </ci>
+<ci> Benzene_CYP2E1 </ci>
+</apply>
+</math>
+<listOfParameters>
+<parameter id="Benzene_J3_k3" value="0.1"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction id="Benzene_J4" reversible="false" fast="false">
+<listOfReactants>
+<speciesReference species="CYP2E1"/>
+<speciesReference species="PB1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="PB1_CYP2E1"/>
+</listOfProducts>
+<kineticLaw>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<apply>
+<times/>
+<ci> Benzene_J4_k1 </ci>
+<ci> PB1 </ci>
+<ci> CYP2E1 </ci>
+</apply>
+</math>
+<listOfParameters>
+<parameter id="Benzene_J4_k1" value="0.1"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction id="Benzene_J5" reversible="false" fast="false">
+<listOfReactants>
+<speciesReference species="PB1_CYP2E1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="CYP2E1"/>
+<speciesReference species="PB1"/>
+</listOfProducts>
+<kineticLaw>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<apply>
+<times/>
+<ci> Benzene_J5_k2 </ci>
+<ci> PB1_CYP2E1 </ci>
+</apply>
+</math>
+<listOfParameters>
+<parameter id="Benzene_J5_k2" value="0.1"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction id="Benzene_J6" reversible="false" fast="false">
+<listOfReactants>
+<speciesReference species="PB1_CYP2E1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="CYP2E1"/>
+<speciesReference species="PB2"/>
+</listOfProducts>
+<kineticLaw>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<apply>
+<times/>
+<ci> Benzene_J6_k3 </ci>
+<ci> PB1_CYP2E1 </ci>
+</apply>
+</math>
+<listOfParameters>
+<parameter id="Benzene_J6_k3" value="0.1"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+</listOfReactions>
+</model>
+</sbml>

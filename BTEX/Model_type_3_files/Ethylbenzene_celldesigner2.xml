@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+<model id="Ethylbenzene_celldesigner1">
+<listOfCompartments>
+<compartment id="compartment" size="1"/>
+<compartment id="Liver" size="1"/>
+</listOfCompartments>
+<listOfSpecies>
+<species id="CYP2E1" name="CYP2E1" initialConcentration="1" compartment="Liver" charge="0"/>
+<species id="Ethylbenzene" name="Ethylbenzene" initialConcentration="2" compartment="compartment" charge="0"/>
+<species id="Ethylbenzene_CYP2E1" name="Ethylbenzene_CYP2E1" initialConcentration="0" compartment="Liver" charge="0"/>
+<species id="PE1_CYP2E1" name="PE1_CYP2E1" initialConcentration="0" compartment="Liver" charge="0"/>
+<species id="PE2" name="PE2" initialConcentration="0" compartment="compartment" charge="0"/>
+<species id="PE1" name="PE1" initialConcentration="0" compartment="compartment" charge="0"/>
+</listOfSpecies>
+<listOfReactions>
+<reaction id="Ethylbenzene_J2" name="Ethylbenzene_J2" reversible="false" fast="false">
+<listOfReactants>
+<speciesReference species="Ethylbenzene_CYP2E1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="Ethylbenzene"/>
+<speciesReference species="CYP2E1"/>
+</listOfProducts>
+<kineticLaw>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<apply>
+<times/>
+<ci> Ethylbenzene_J2_k2 </ci>
+<ci> Ethylbenzene_CYP2E1 </ci>
+</apply>
+</math>
+<listOfParameters>
+<parameter id="Ethylbenzene_J2_k2" value="0.1"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction id="Ethylbenzene_J1" name="Ethylbenzene_J1" reversible="false" fast="false">
+<listOfReactants>
+<speciesReference species="Ethylbenzene"/>
+<speciesReference species="CYP2E1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="Ethylbenzene_CYP2E1"/>
+</listOfProducts>
+<kineticLaw>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<apply>
+<times/>
+<ci> Ethylbenzene_J1_k1 </ci>
+<ci> Ethylbenzene </ci>
+<ci> CYP2E1 </ci>
+</apply>
+</math>
+<listOfParameters>
+<parameter id="Ethylbenzene_J1_k1" value="0.1"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction id="Ethylbenzene_J3" name="Ethylbenzene_J3" reversible="false" fast="false">
+<listOfReactants>
+<speciesReference species="Ethylbenzene_CYP2E1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="CYP2E1"/>
+<speciesReference species="PE1"/>
+</listOfProducts>
+<kineticLaw>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<apply>
+<times/>
+<ci> Ethylbenzene_J3_k3 </ci>
+<ci> Ethylbenzene_CYP2E1 </ci>
+</apply>
+</math>
+<listOfParameters>
+<parameter id="Ethylbenzene_J3_k3" value="0.1"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction id="Ethylbenzene_J4" reversible="false" fast="false">
+<listOfReactants>
+<speciesReference species="CYP2E1"/>
+<speciesReference species="PE1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="PE1_CYP2E1"/>
+</listOfProducts>
+<kineticLaw>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<apply>
+<times/>
+<ci> Ethylbenzene_J4_k1 </ci>
+<ci> PE1 </ci>
+<ci> CYP2E1 </ci>
+</apply>
+</math>
+<listOfParameters>
+<parameter id="Ethylbenzene_J4_k1" value="0.1"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction id="Ethylbenzene_J5" reversible="false" fast="false">
+<listOfReactants>
+<speciesReference species="PE1_CYP2E1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="CYP2E1"/>
+<speciesReference species="PE1"/>
+</listOfProducts>
+<kineticLaw>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<apply>
+<times/>
+<ci> Ethylbenzene_J5_k2 </ci>
+<ci> PE1_CYP2E1 </ci>
+</apply>
+</math>
+<listOfParameters>
+<parameter id="Ethylbenzene_J5_k2" value="0.1"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction id="Ethylbenzene_J6" reversible="false" fast="false">
+<listOfReactants>
+<speciesReference species="PE1_CYP2E1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="CYP2E1"/>
+<speciesReference species="PE2"/>
+</listOfProducts>
+<kineticLaw>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<apply>
+<times/>
+<ci> Ethylbenzene_J6_k3 </ci>
+<ci> PE1_CYP2E1 </ci>
+</apply>
+</math>
+<listOfParameters>
+<parameter id="Ethylbenzene_J6_k3" value="0.1"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+</listOfReactions>
+</model>
+</sbml>

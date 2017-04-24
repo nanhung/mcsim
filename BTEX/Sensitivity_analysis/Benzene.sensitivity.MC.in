@@ -1,0 +1,106 @@
+#-----------------------------------------------------------
+# Simple MC input file for sensitivity analysis of the rat benzene data 
+# rat parameter values taken mostly from Haddad, TAP 161:249 (1999)
+
+  Integrate (Lsodes, 1E-7, 1E-7, 1);
+
+  MonteCarlo ("Benzene.sensitivity.MC.out", 10000, 15013871.985881);
+
+  Distrib (k,  Uniform, 2, 25);
+  Distrib (k1, Uniform, 1E6, 1E7);
+  Distrib (k2, Uniform, 5, 15);
+
+  Distrib (BodyV, Uniform, 0.20, 0.3); 
+  Distrib (V_fat, Uniform, 0.01, 0.025);  
+  Distrib (V_liv, Uniform, 0.008, 0.012);
+  Distrib (V_wp,  Uniform, 0.01, 0.14);  
+
+  Distrib (Pct_Flow_fat, Uniform, 0.08, 0.1);   
+  Distrib (Pct_Flow_liv, Uniform, 0.22, 0.27);
+  Distrib (Pct_Flow_pp,  Uniform, 0.10, 0.2);
+
+  Distrib (Flow_alv, Uniform, 0.04, 0.1);
+  Distrib (Flow_tot, Uniform, 0.04, 0.1);
+
+  Distrib (Benzene_PC_art, Uniform, 12, 18);
+  Distrib (Benzene_PC_fat, Uniform, 30, 36);
+  Distrib (Benzene_PC_liv, Uniform, 1, 1.3);
+  Distrib (Benzene_PC_wp , Uniform, 1, 1.3);
+  Distrib (Benzene_PC_pp , Uniform, 1, 1.3);
+  
+
+  # Initial state variable values
+  CYP2E1_Liver = 20.913E-6;
+ 
+  # MW
+  Benzene_MW = 78;
+  Toluene_MW = 92.14;
+  Ethylbenzene_MW = 106.17;
+  Xylene_MW = 106.17;
+  
+  # These are not used, but initialized correctly to avoid problems   
+  Toluene_J0_k2 =10;
+  Toluene_J0_k1 = 1331564.75;  
+  Toluene_J1_k = 8.787;
+  Toluene_PC_art = 18;
+  Toluene_PC_fat = 56.722;
+  Toluene_PC_liv = 4.644;
+  Toluene_PC_wp = 4.644;
+  Toluene_PC_pp = 1.539;
+
+  Ethylbenzene_J0_k2 = 10; 
+  Ethylbenzene_J0_k1 = 268712.87; 
+  Ethylbenzene_J1_k = 16.322;
+  Ethylbenzene_PC_art = 42.7;
+  Ethylbenzene_PC_fat = 36.440;
+  Ethylbenzene_PC_liv = 1.963;
+  Ethylbenzene_PC_wp = 1.412;
+  Ethylbenzene_PC_pp = 0.609;
+  
+  Xylene_J0_k2 = 10;
+  Xylene_J0_k1 = 627063.613;
+  Xylene_J1_k = 16.578;
+  Xylene_PC_art = 46.0;
+  Xylene_PC_fat = 40.413;
+  Xylene_PC_liv = 1.967;
+  Xylene_PC_wp = 1.967;
+  Xylene_PC_pp = 0.911;
+
+
+Simulation { # 1: # benzene Haddad 2000
+         
+  Benzene_C_inh = PerDose(0.00208,360,0,240);
+
+  Data  (Benzene_C_ven_MGL, 0.476, 0.265, 0.110, 0.060, 0.034);
+  Print (Benzene_C_ven_MGL, 245,   270,   300,   330,   360);
+  
+}
+
+Simulation { # 2: # benzene Haddad 2000
+         
+  Benzene_C_inh = PerDose(0.00416,360,0,240);
+
+  Data  (Benzene_C_ven_MGL, 1.482, 0.832, 0.432, 0.245, 0.109);
+  Print (Benzene_C_ven_MGL, 245, 270, 300, 330, 360);
+  
+}
+
+Simulation { # 3: # benzene Haddad 2000
+         
+  Benzene_C_inh = PerDose(0.00832,360,0,240);
+
+  Data  (Benzene_C_ven_MGL, 5.432, 3.547, 2.172, 1.324, 0.766);
+  Print (Benzene_C_ven_MGL, 245, 270, 300, 330, 360);
+ 
+}
+
+Simulation { # 4: # benzene Haddad 2000
+         
+  Benzene_C_inh = PerDose(0.0208,360,0,240);
+
+  Data  (Benzene_C_ven_MGL, 16.19, 10.99, 6.03, 4.04, 2.26);
+  Print (Benzene_C_ven_MGL, 245, 270, 300, 330, 360);
+ 
+}
+
+End.

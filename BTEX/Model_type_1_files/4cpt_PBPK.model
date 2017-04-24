@@ -1,0 +1,178 @@
+#------------------------------------------------------------------------------
+# 4cpt.model
+# Template for a four compartment model, based on Ramsey and Andersen 1984
+#
+#------------------------------------------------------------------------------
+
+# States are quantities 
+
+States = {_Q_fat,        # Quantity of X in the fat (mmoles)
+          _Q_wp,         #   ...   in the well-perfused compartment (mmoles)
+          _Q_pp,         #   ...   in the poorly-perfused compartment (mmoles)
+          _Liver,        #   ...   in the liver (mmoles)
+          _Q_exh};       #   ...   exhaled (mmoles)
+
+
+Outputs = {_C_liv,               # mmoles/l in the liver
+           _C_fat,               # ... in fat
+           _C_wp,                # ... in viscera
+           _C_pp,                # ... in muscle and skin
+           _C_alv,               # ... in the alveolar air
+           _C_exh,               # ... in the exhaled air
+           _C_ven,               # ... in the venous blood
+           _C_ven_MGL,           # mg/L in venous blood
+           _C_ven_MGL_wn,        # mg/L in venous blood with lognormal noise
+           sigma_obs};           # measured geometric SD = exp(sqrt(ln(CV^2 + 1)))
+
+
+Inputs = {_C_inh,                # Concentration inhaled (mmoles/L)
+          _Q_ing};               # Ingestion rate (mmoles/minute)
+
+
+Compartments = {Liver, Fat, Poorly_perfused, Well_perfused, Arterial_blood,
+                Venous_blood, Exhaled_air};
+
+
+# Nominal parameter values
+# ========================
+# Units:
+# Volumes: liter
+# Time:    minute
+# Flows:   liter / min
+
+
+# Substance specific paramaters
+# --------------------------------------------
+_MW = 1; # Molecular weight
+
+
+# Physiological and pharmacokinetic parameters (Ramsey and Andersen)
+# --------------------------------------------
+BodyV = 75;    # total body volume (L)
+
+V_fat = 18;    # van der model dioxin model (L)
+V_liv = 1.7;   # idem
+V_wp  = 6;     # idem
+V_pp  = 0;     # will be recomputed in scale
+
+# Percent blood flows to tissues
+Pct_Flow_fat = 0.09;
+Pct_Flow_liv = 0.24;
+Pct_Flow_wp  = 0.49; # will be recomputed in scale
+Pct_Flow_pp  = 0.18;
+
+# Pulmonary alveolar ventilation rate 
+Flow_alv  = 5.6;  # = 0.7 * Flow_pul with Flow_pul = 8 
+
+# Total blood flow
+Flow_tot = 6.384; # = R * Flow_alv with VPR (R) = 1.14
+
+# Blood / air partition coefficient
+_PC_art = 52; 
+
+# Tissue/blood partition coeficients
+_PC_fat = 50;
+_PC_liv = 2.7;
+_PC_wp  = 5.7;
+_PC_pp  = 1.0;
+
+# Statistical parameters
+# ----------------------
+sigma = 1; # arbitrary value
+
+
+# Scaled parameters
+# -----------------
+# The following parameters are calculated from the above values in the Scale 
+# section before the start of each simulation.  
+
+Flow_fat = 0;        # Actual blood flows through tissues
+Flow_liv = 0;
+Flow_wp  = 0;
+Flow_pp  = 0;
+
+
+#---------------------------------------------------------
+# Scale
+#---------------------------------------------------------
+
+Initialize {
+
+# Volume of poorly-perfused
+V_pp   = 0.9 * BodyV - V_fat - V_liv - V_wp; # 10% bones
+
+# Calculate actual blood flows from total flow and percent flows 
+Flow_fat = Pct_Flow_fat * Flow_tot;
+Flow_liv = Pct_Flow_liv * Flow_tot;
+Flow_pp  = Pct_Flow_pp  * Flow_tot;
+Flow_wp  = Flow_tot - Flow_fat - Flow_liv - Flow_pp;
+
+} # End of model scaling
+
+
+#---------------------------------------------------------
+# Dynamics
+#---------------------------------------------------------
+
+Dynamics {
+
+# Venous blood concentrations at the organ exit
+_Cout_fat = _Q_fat / (V_fat * _PC_fat);
+
+_Cout_wp  = _Q_wp  / (V_wp  * _PC_wp);
+
+_Cout_pp  = _Q_pp  / (V_pp  * _PC_pp);
+
+_Cout_liv = _Liver / (V_liv * _PC_liv);
+
+# Sum of Flow * Concentration for all compartments
+_dQ_ven = Flow_fat * _Cout_fat + Flow_wp * _Cout_wp
+          + Flow_pp * _Cout_pp + Flow_liv * _Cout_liv;
+
+# Venous blood concentration
+_C_ven = _dQ_ven / Flow_tot;
+
+# Arterial blood concentration
+_C_art = (Flow_alv * _C_inh  + _dQ_ven) / 
+         (Flow_tot + Flow_alv / _PC_art);
+
+# Alveolar air concentration
+_C_alv = _C_art / _PC_art;
+
+# Exhaled air concentration
+_C_exh = 0.7 * _C_alv + 0.3 * _C_inh;
+
+# Differentials for quantities
+
+dt(_Q_exh) = Flow_alv * _C_alv;
+dt(_Q_fat) = Flow_fat * (_C_art - _Cout_fat);
+dt(_Q_wp)  = Flow_wp  * (_C_art - _Cout_wp);
+dt(_Q_pp)  = Flow_pp  * (_C_art - _Cout_pp);
+dt(_Liver) = _Q_ing + Flow_liv * (_C_art - _Cout_liv);
+
+} # End of Dynamics
+
+
+#---------------------------------------------------------
+# CalcOutputs 
+#---------------------------------------------------------
+
+CalcOutputs {
+
+# Concentration
+_C_liv = _Liver / V_liv;
+_C_fat = _Q_fat / V_fat;
+_C_wp  = _Q_wp  / V_wp;
+_C_pp  = _Q_pp  / V_pp;
+
+_C_ven_MGL = _MW *  _C_ven;
+
+_C_ven_MGL_wn = _C_ven_MGL * LogNormalRandom (1, sigma);
+
+# Statistical parameter 
+sigma_obs = sigma;
+
+} # End of output calculation
+
+End.
+

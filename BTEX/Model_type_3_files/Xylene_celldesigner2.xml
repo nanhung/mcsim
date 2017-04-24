@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+<model id="Xylene_celldesigner1">
+<listOfCompartments>
+<compartment id="compartment" size="1"/>
+<compartment id="Liver" size="1"/>
+</listOfCompartments>
+<listOfSpecies>
+<species id="CYP2E1" name="CYP2E1" initialConcentration="1" compartment="Liver" charge="0"/>
+<species id="Xylene" name="Xylene" initialConcentration="2" compartment="compartment" charge="0"/>
+<species id="Xylene_CYP2E1" name="Xylene_CYP2E1" initialConcentration="0" compartment="Liver" charge="0"/>
+<species id="PX1_CYP2E1" name="PX1_CYP2E1" initialConcentration="0" compartment="Liver" charge="0"/>
+<species id="PX2" name="PX2" initialConcentration="0" compartment="compartment" charge="0"/>
+<species id="PX1" name="PX1" initialConcentration="0" compartment="compartment" charge="0"/>
+</listOfSpecies>
+<listOfReactions>
+<reaction id="Xylene_J2" name="Xylene_J2" reversible="false" fast="false">
+<listOfReactants>
+<speciesReference species="Xylene_CYP2E1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="Xylene"/>
+<speciesReference species="CYP2E1"/>
+</listOfProducts>
+<kineticLaw>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<apply>
+<times/>
+<ci> Xylene_J2_k2 </ci>
+<ci> Xylene_CYP2E1 </ci>
+</apply>
+</math>
+<listOfParameters>
+<parameter id="Xylene_J2_k2" value="0.1"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction id="Xylene_J1" name="Xylene_J1" reversible="false" fast="false">
+<listOfReactants>
+<speciesReference species="Xylene"/>
+<speciesReference species="CYP2E1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="Xylene_CYP2E1"/>
+</listOfProducts>
+<kineticLaw>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<apply>
+<times/>
+<ci> Xylene_J1_k1 </ci>
+<ci> Xylene </ci>
+<ci> CYP2E1 </ci>
+</apply>
+</math>
+<listOfParameters>
+<parameter id="Xylene_J1_k1" value="0.1"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction id="Xylene_J3" name="Xylene_J3" reversible="false" fast="false">
+<listOfReactants>
+<speciesReference species="Xylene_CYP2E1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="CYP2E1"/>
+<speciesReference species="PX1"/>
+</listOfProducts>
+<kineticLaw>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<apply>
+<times/>
+<ci> Xylene_J3_k3 </ci>
+<ci> Xylene_CYP2E1 </ci>
+</apply>
+</math>
+<listOfParameters>
+<parameter id="Xylene_J3_k3" value="0.1"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction id="Xylene_J4" reversible="false" fast="false">
+<listOfReactants>
+<speciesReference species="CYP2E1"/>
+<speciesReference species="PX1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="PX1_CYP2E1"/>
+</listOfProducts>
+<kineticLaw>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<apply>
+<times/>
+<ci> Xylene_J4_k1 </ci>
+<ci> PX1 </ci>
+<ci> CYP2E1 </ci>
+</apply>
+</math>
+<listOfParameters>
+<parameter id="Xylene_J4_k1" value="0.1"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction id="Xylene_J5" reversible="false" fast="false">
+<listOfReactants>
+<speciesReference species="PX1_CYP2E1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="CYP2E1"/>
+<speciesReference species="PX1"/>
+</listOfProducts>
+<kineticLaw>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<apply>
+<times/>
+<ci> Xylene_J5_k2 </ci>
+<ci> PX1_CYP2E1 </ci>
+</apply>
+</math>
+<listOfParameters>
+<parameter id="Xylene_J5_k2" value="0.1"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction id="Xylene_J6" reversible="false" fast="false">
+<listOfReactants>
+<speciesReference species="PX1_CYP2E1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="CYP2E1"/>
+<speciesReference species="PX2"/>
+</listOfProducts>
+<kineticLaw>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<apply>
+<times/>
+<ci> Xylene_J6_k3 </ci>
+<ci> PX1_CYP2E1 </ci>
+</apply>
+</math>
+<listOfParameters>
+<parameter id="Xylene_J6_k3" value="0.1"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+</listOfReactions>
+</model>
+</sbml>
