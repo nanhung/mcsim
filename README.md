@@ -46,14 +46,14 @@ Now, we are in the Cloud 9 IDE interface. We’ll use terminal to do the followi
 
  - Download the latest version of MCSim in our workspace from the main GNU server 
 ```
-$ wget http://ftp.gnu.org/gnu/mcsim/mcsim-5.6.6.tar.gz
+wget http://ftp.gnu.org/gnu/mcsim/mcsim-5.6.6.tar.gz
 ```
 
 ![](https://d2mxuefqeaa7sj.cloudfront.net/s_4E615E25DF123BA26B5E5BF98A09B0870890A8A44F2D14747238ACAED0138029_1492187738329_file.png)
 
  - Extract the file
 ```
-$ tar -xzvf mcsim-5.6.6.tar.gz
+tar -xzvf mcsim-5.6.6.tar.gz
 ```
 
 ![](https://d2mxuefqeaa7sj.cloudfront.net/s_4E615E25DF123BA26B5E5BF98A09B0870890A8A44F2D14747238ACAED0138029_1492187746848_file.png)
@@ -61,13 +61,13 @@ $ tar -xzvf mcsim-5.6.6.tar.gz
 - Use *pwd* to check our working directory. In this case, we want to install MCSim in the */home/ubuntu*
 
 ```
-$ pwd
+pwd
 ```
 
 - Since we don’t have the access rights in Cloud9, we need to use *./configure --prefix=/home/ubuntu* to install MCSim
 
 ```
-$ ./configure --prefix=/home/ubuntu
+./configure --prefix=/home/ubuntu
 ```
 
 ![](https://d2mxuefqeaa7sj.cloudfront.net/s_4E615E25DF123BA26B5E5BF98A09B0870890A8A44F2D14747238ACAED0138029_1492187758528_file.png)
@@ -75,7 +75,7 @@ $ ./configure --prefix=/home/ubuntu
 - Compile the package
 
 ```
-$  make
+make
 ```
 
 ![](https://i.imgur.com/csuwjZt.png)
@@ -83,13 +83,13 @@ $  make
 - Run self-tests
 
 ```
-$ make check
+make check
 ```
 
 ![](https://d2mxuefqeaa7sj.cloudfront.net/s_4E615E25DF123BA26B5E5BF98A09B0870890A8A44F2D14747238ACAED0138029_1492187776614_file.png)
 
 ```
-$ make install
+make install
 ```
 
 ![](https://d2mxuefqeaa7sj.cloudfront.net/s_4E615E25DF123BA26B5E5BF98A09B0870890A8A44F2D14747238ACAED0138029_1492187783626_file.png)
@@ -101,13 +101,13 @@ $ make install
 - To test run the MCsim we need to compile the model file first. We also need to use command *makemcsims* to create the standalone model.
 
 ```
-$ makemcsims perc.model
+makemcsims perc.model
 ```
 
 - Use the compiled program to run the input file. We can get the output file in the current directory.
 
 ```
-$ ./mcsim.perc perc.lsodes.in
+./mcsim.perc perc.lsodes.in
 ```
 
 ![](https://i.imgur.com/5oWRdbw.png)
@@ -118,26 +118,26 @@ $ ./mcsim.perc perc.lsodes.in
 - Check the current status and untracked files
 
 ```
-$ git status
+git status
 ```
 
 
 - Track the new files and revised files  
 
 ```
-$ git add .
+git add .
 ```
 
 - Enter our commit message to help us remember what we were done in this period 
 
 ```
-$ git commit -m “Install MCSim”
+git commit -m “Install MCSim”
 ```
 
 - Push our commit to GitHub
 
 ```
-$ git push
+git push
 ```
  
 ![](https://d2mxuefqeaa7sj.cloudfront.net/s_4E615E25DF123BA26B5E5BF98A09B0870890A8A44F2D14747238ACAED0138029_1492187806597_file.png)
