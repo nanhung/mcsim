@@ -84,6 +84,7 @@ Kmetwp = 0.25;
 # Variances inter individuelles
 Vr_PC_pp        = 0.182; # factor 1.2
 Vr_PC_wp        = 0.182; # factor 1.2
+Vr_pct_dead     = 0.182; # 
 Vr_Pct_Flow_fat = 0.182; # factor 1.2
 Vr_Pct_Flow_pp  = 0.182; # factor 1.2
 Vr_Pct_BDW_wp   = 0.182; # factor 1.2
